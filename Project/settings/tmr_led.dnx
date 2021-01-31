@@ -39,7 +39,7 @@
         <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </StLinkDriver>
     <DebugChecksum>
-        <Checksum>1224213961</Checksum>
+        <Checksum>198385579</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -149,7 +149,18 @@
         <Count>0</Count>
     </Breakpoints2>
     <Aliases>
-        <Count>0</Count>
+        <A0>_ "E:\Recycle_Bin\Timr\IAR_Tmr\Libraries\CMSIS\startup\startup_stm32f40xx.s" ""</A0>
+        <A1>_ "E:\Recycle_Bin\Timr\IAR_Tmr\Libraries\CMSIS\system_stm32f4xx.c" ""</A1>
+        <A2>_ "E:\Recycle_Bin\Timr\IAR_Tmr\Libraries\STM32F4xx_StdPeriph_Driver\src\misc.c" ""</A2>
+        <A3>_ "E:\Recycle_Bin\Timr\IAR_Tmr\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_gpio.c" ""</A3>
+        <A4>_ "E:\Recycle_Bin\Timr\IAR_Tmr\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rcc.c" ""</A4>
+        <A5>_ "E:\Recycle_Bin\Timr\IAR_Tmr\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_tim.c" ""</A5>
+        <A6>_ "E:\Recycle_Bin\Timr\IAR_Tmr\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c" ""</A6>
+        <A7>_ "E:\Recycle_Bin\Timr\IAR_Tmr\User\led\bsp_led.c" ""</A7>
+        <A8>_ "E:\Recycle_Bin\Timr\IAR_Tmr\User\stm32f4xx_it.c" ""</A8>
+        <A9>_ "E:\Recycle_Bin\Timr\IAR_Tmr\User\tim\bsp_basic_tim.c" ""</A9>
+        <A10>_ "E:\Recycle_Bin\Timr\IAR_Tmr\User\usart\bsp_debug_usart.c" ""</A10>
+        <Count>11</Count>
         <SuppressDialog>0</SuppressDialog>
     </Aliases>
 </settings>
