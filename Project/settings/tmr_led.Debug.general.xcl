@@ -1,14 +1,14 @@
-"D:\IAR\arm\bin\armproc.dll" 
+"D:\IAR Systems\arm\bin\armproc.dll" 
 
-"D:\IAR\arm\bin\armstlink2.dll" 
+"D:\IAR Systems\arm\bin\armstlink2.dll" 
 
-"E:\Recycle_Bin\Timr\IAR_Tmr\IAR_Project\Project\Debug\Exe\tmr_led.out" 
+"E:\My_Work_File\iar\IAR_Project1\Project\Debug\Exe\tmr_led.out" 
 
---plugin="D:\IAR\arm\bin\armbat.dll" 
+--plugin="D:\IAR Systems\arm\bin\armbat.dll" 
 
---device_macro="D:\IAR\arm\config\debugger\ST\STM32F4xx.dmac" 
+--device_macro="D:\IAR Systems\arm\config\debugger\ST\STM32F4xx.dmac" 
 
---flash_loader="D:\IAR\arm\config\flashloader\ST\FlashSTM32F4xxx.board" 
+--flash_loader="D:\IAR Systems\arm\config\flashloader\ST\FlashSTM32F4xxx.board" 
 
 
 

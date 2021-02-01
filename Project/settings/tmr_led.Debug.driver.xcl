@@ -6,7 +6,7 @@
 
 "-p" 
 
-"D:\IAR\arm\CONFIG\debugger\ST\STM32F407IG.ddf" 
+"D:\IAR Systems\arm\CONFIG\debugger\ST\STM32F407IG.ddf" 
 
 "--semihosting" 
 

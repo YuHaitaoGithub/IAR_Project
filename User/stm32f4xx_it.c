@@ -181,7 +181,6 @@ void DEBUG_USART_IRQHandler(void)
         FlagStart = 1;
 		RecvData[Index++] = ucTemp;
 		USART_ClearITPendingBit(DEBUG_USART, USART_IT_RXNE);
-        //USART_SendData(DEBUG_USART,ucTemp);
 	}	 
 }	
 

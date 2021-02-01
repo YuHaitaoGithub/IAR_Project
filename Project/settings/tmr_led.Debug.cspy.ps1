@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "D:\IAR\common\bin\cspybat" -f "E:\Recycle_Bin\Timr\IAR_Tmr\IAR_Project\Project\settings\tmr_led.Debug.general.xcl" --backend -f "E:\Recycle_Bin\Timr\IAR_Tmr\IAR_Project\Project\settings\tmr_led.Debug.driver.xcl" 
+& "D:\IAR Systems\common\bin\cspybat" -f "E:\My_Work_File\iar\IAR_Project1\Project\settings\tmr_led.Debug.general.xcl" --backend -f "E:\My_Work_File\iar\IAR_Project1\Project\settings\tmr_led.Debug.driver.xcl" 
 }
 else
 {
-& "D:\IAR\common\bin\cspybat" -f "E:\Recycle_Bin\Timr\IAR_Tmr\IAR_Project\Project\settings\tmr_led.Debug.general.xcl" --debug_file=$debugfile --backend -f "E:\Recycle_Bin\Timr\IAR_Tmr\IAR_Project\Project\settings\tmr_led.Debug.driver.xcl" 
+& "D:\IAR Systems\common\bin\cspybat" -f "E:\My_Work_File\iar\IAR_Project1\Project\settings\tmr_led.Debug.general.xcl" --debug_file=$debugfile --backend -f "E:\My_Work_File\iar\IAR_Project1\Project\settings\tmr_led.Debug.driver.xcl" 
 }
