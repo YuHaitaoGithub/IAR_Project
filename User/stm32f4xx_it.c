@@ -34,9 +34,9 @@
 #include "bsp_debug_usart.h"
 #include "string.h"
 
-extern uint32_t data;
-extern uint16_t contrastData;
-extern uint16_t flag;
+extern uint16_t Index;
+extern uint16_t RecvData[256];
+extern uint16_t FlagStart;
 	
 /** @addtogroup STM32F429I_DISCOVERY_Examples
   * @{
@@ -178,16 +178,10 @@ void DEBUG_USART_IRQHandler(void)
 	if(USART_GetITStatus(DEBUG_USART,USART_IT_RXNE)!=RESET)
 	{
         ucTemp = USART_ReceiveData( DEBUG_USART );
-        flag = 1;
-        if((ucTemp >= 48) && (ucTemp <= 57))
-        {  
-          data = (data * 10 + (ucTemp - '0'));
-        } 
-        else 
-        {
-          contrastData = 1;
-        }
-        USART_SendData(DEBUG_USART,ucTemp);
+        FlagStart = 1;
+		RecvData[Index++] = ucTemp;
+		USART_ClearITPendingBit(DEBUG_USART, USART_IT_RXNE);
+        //USART_SendData(DEBUG_USART,ucTemp);
 	}	 
 }	
 
