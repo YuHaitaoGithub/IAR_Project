@@ -80,16 +80,12 @@ static void TIM_Mode_Config(void)
 	TIM_Cmd(BASIC_TIM, ENABLE);	
 }
 
-/**
-  * @brief  初始化基本定时器定时，1ms产生一次中断
-  * @param  无
-  * @retval 无
-  */
+
 void TIMx_Configuration(void)
 {
 	TIMx_NVIC_Configuration();	
   
-  TIM_Mode_Config();
+	TIM_Mode_Config();
 }
 
 /*********************************************END OF FILE**********************/

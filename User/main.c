@@ -10,6 +10,12 @@ uint32_t data = 0;
 uint16_t contrastData = 0;
 uint16_t flag = 0;
 
+
+
+
+
+
+
 int main(void) 
 {
     uint32_t b = 0xfffff;
@@ -27,22 +33,22 @@ int main(void)
  	while(1)
   	{  
 		if(flag == 1)
-		{
-          for(b;b != 0;--b){}
-            printf("\n");
+		{		
+          	for(b;b != 0;--b){}
+           	printf("\n");
             b = 0xfffff;
             flag = 0;
             if((contrastData == 0) && (data > 0) && (((data / 10) < 6553) || (((data / 10) == 6553) && ((data % 100) <= 5))))
             {   
                 a = data;
                 TIMx_Configuration();
-                printf("写入成功\n");
+                printf("Write success\n");
                 printf("当前频率为:%d ms\n",a);
             }
             else
             { 
                 contrastData = 0;
-                printf("写入失败\n");           
+                printf("Write failed\n");           
              }
             data = 0;
 		}
