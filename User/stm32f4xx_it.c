@@ -32,7 +32,11 @@
 #include "led/bsp_led.h"
 #include "bsp_basic_tim.h"
 #include "bsp_debug_usart.h"
-extern uint16_t b;
+#include "string.h"
+
+extern uint32_t data;
+extern uint16_t contrastData;
+extern uint16_t flag;
 	
 /** @addtogroup STM32F429I_DISCOVERY_Examples
   * @{
@@ -169,18 +173,21 @@ void  BASIC_TIM_IRQHandler (void)
 
 void DEBUG_USART_IRQHandler(void)
 {
-  	uint8_t ucTemp;
+  	uint16_t ucTemp;
+	
 	if(USART_GetITStatus(DEBUG_USART,USART_IT_RXNE)!=RESET)
-	{		
-		ucTemp = USART_ReceiveData( DEBUG_USART );
-		if(ucTemp == '1')
-			b = 1;	
-		if(ucTemp == '2')
-			b = 2;	
-    USART_SendData(DEBUG_USART,ucTemp); 
-		
-		//USART_ClearITPendingBit(DEBUG_USART,USART_IT_RXNE);
-    	//printf("ÒÑÊÕµ½\n");
+	{
+        ucTemp = USART_ReceiveData( DEBUG_USART );
+        flag = 1;
+        if((ucTemp >= 48) && (ucTemp <= 57))
+        {  
+          data = (data * 10 + (ucTemp - '0'));
+        } 
+        else 
+        {
+          contrastData = 1;
+        }
+        USART_SendData(DEBUG_USART,ucTemp);
 	}	 
 }	
 
