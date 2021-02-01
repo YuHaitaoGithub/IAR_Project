@@ -3,9 +3,6 @@
 
 #include "stm32f4xx.h"
 
-//引脚定义
-/*******************************************************/
-//R 红色灯
 #define LED1_PIN                  GPIO_Pin_9                 
 #define LED1_GPIO_PORT            GPIOF                      
 #define LED1_GPIO_CLK             RCC_AHB1Periph_GPIOF

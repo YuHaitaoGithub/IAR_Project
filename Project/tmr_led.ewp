@@ -354,6 +354,7 @@
                     <state>$PROJ_DIR$\..\User\led</state>
                     <state>$PROJ_DIR$\..\User\tim</state>
                     <state>$PROJ_DIR$\..\User\usart</state>
+                    <state>$PROJ_DIR$\..\User\PWM_tmr</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2307,6 +2308,15 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\User\led\bsp_led.h</name>
+        </file>
+    </group>
+    <group>
+        <name>PWM-TRM</name>
+        <file>
+            <name>$PROJ_DIR$\..\User\PWM_tmr\bsp_general_tim.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\User\PWM_tmr\bsp_general_tim.h</name>
         </file>
     </group>
     <group>

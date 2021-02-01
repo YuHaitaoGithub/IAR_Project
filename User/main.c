@@ -2,18 +2,13 @@
 #include "bsp_basic_tim.h"
 #include "bsp_led.h"
 #include "bsp_debug_usart.h"
-
+#include "bsp_general_tim.h"
 
 
 uint16_t a = 500; 
 uint32_t data = 0;
 uint16_t contrastData = 0;
 uint16_t flag = 0;
-
-
-
-
-
 
 
 int main(void) 
@@ -29,6 +24,9 @@ int main(void)
     printf("数据位：8\n");
     printf("校验位：无校验\n");
     printf("停止位：1\n");
+    
+    
+    
     
  	while(1)
   	{  

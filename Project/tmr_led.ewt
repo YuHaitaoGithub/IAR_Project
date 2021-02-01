@@ -2568,6 +2568,15 @@
         </file>
     </group>
     <group>
+        <name>PWM-TRM</name>
+        <file>
+            <name>$PROJ_DIR$\..\User\PWM_tmr\bsp_general_tim.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\User\PWM_tmr\bsp_general_tim.h</name>
+        </file>
+    </group>
+    <group>
         <name>TMR</name>
         <file>
             <name>$PROJ_DIR$\..\User\tim\bsp_basic_tim.c</name>
