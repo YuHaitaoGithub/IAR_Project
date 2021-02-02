@@ -20,7 +20,7 @@ int FrequencyCalculation()
 	float clkFloat;
 	if(f <= 0)
 		return 0;
-    clkFloat = 84000000.0f / f;
+    clkFloat = 42000000.0f / f;
 	if(clkFloat-(long)clkFloat >= 0.5f)  		
 		clkInt = clkFloat + 1;
 	else							 		
