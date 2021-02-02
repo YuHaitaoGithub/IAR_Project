@@ -2317,6 +2317,12 @@
         <file>
             <name>$PROJ_DIR$\..\User\tim\bsp_basic_tim.h</name>
         </file>
+        <file>
+            <name>$PROJ_DIR$\..\User\tim\bsp_general_tim.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\User\tim\bsp_general_tim.h</name>
+        </file>
     </group>
     <group>
         <name>USART</name>
@@ -2331,6 +2337,9 @@
         <name>USER</name>
         <file>
             <name>$PROJ_DIR$\..\User\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\User\main.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\User\stm32f4xx_conf.h</name>
