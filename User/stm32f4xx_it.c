@@ -32,7 +32,12 @@
 #include "led/bsp_led.h"
 #include "bsp_basic_tim.h"
 #include "bsp_debug_usart.h"
-extern uint16_t b;
+#include "main.h"
+
+extern uint16_t erroyFlag;
+extern uint16_t Index;
+extern uint8_t ReceiveArray[ReceiveDataSize];
+extern uint16_t ReceiveFlag;
 	
 /** @addtogroup STM32F429I_DISCOVERY_Examples
   * @{
@@ -157,6 +162,7 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */	
+#if 0
 void  BASIC_TIM_IRQHandler (void)
 {
 	if ( TIM_GetITStatus( BASIC_TIM, TIM_IT_Update) != RESET ) 
@@ -166,22 +172,23 @@ void  BASIC_TIM_IRQHandler (void)
 		TIM_ClearITPendingBit(BASIC_TIM , TIM_IT_Update);  		 
 	}		 	
 }
+#endif
 
 void DEBUG_USART_IRQHandler(void)
 {
   	uint8_t ucTemp;
-	if(USART_GetITStatus(DEBUG_USART,USART_IT_RXNE)!=RESET)
+	if(USART_GetITStatus(DEBUG_USART,USART_IT_RXNE)!= RESET)
 	{		
-		ucTemp = USART_ReceiveData( DEBUG_USART );
-		if(ucTemp == '1')
-			b = 1;	
-		if(ucTemp == '2')
-			b = 2;	
-    USART_SendData(DEBUG_USART,ucTemp); 
-		
-		//USART_ClearITPendingBit(DEBUG_USART,USART_IT_RXNE);
-    	//printf("“— ’µΩ\n");
-	}	 
+		ReceiveArray[Index++] = USART_ReceiveData( DEBUG_USART );
+		if(ReceiveArray[Index - 1] - 48 < 0 || ReceiveArray[Index - 1] - 57 > 9)
+			erroyFlag = 1;	
+	}	
+	if(USART_GetITStatus(DEBUG_USART,USART_IT_IDLE)!= RESET)
+	{		
+		ucTemp = DEBUG_USART->SR;
+		ucTemp = DEBUG_USART->DR;
+		ReceiveFlag = 1;
+	}
 }	
 
 /**
