@@ -20,18 +20,7 @@ static void TIMx_NVIC_Configuration(void)
     NVIC_Init(&NVIC_InitStructure);
 }
 
-/*
- * 注意：TIM_TimeBaseInitTypeDef结构体里面有5个成员，TIM6和TIM7的寄存器里面只有
- * TIM_Prescaler和TIM_Period，所以使用TIM6和TIM7的时候只需初始化这两个成员即可，
- * 另外三个成员是通用定时器和高级定时器才有.
- *-----------------------------------------------------------------------------
- * TIM_Prescaler         都有
- * TIM_CounterMode			 TIMx,x[6,7]没有，其他都有（基本定时器）
- * TIM_Period            都有
- * TIM_ClockDivision     TIMx,x[6,7]没有，其他都有(基本定时器)
- * TIM_RepetitionCounter TIMx,x[1,8]才有(高级定时器)
- *-----------------------------------------------------------------------------
- */
+
 static void TIM_Mode_Config(void)
 {
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
@@ -39,28 +28,34 @@ static void TIM_Mode_Config(void)
 	// 开启TIMx_CLK,x[6,7] 
   RCC_APB1PeriphClockCmd(BASIC_TIM_CLK, ENABLE); 
 
-  /* 累计 TIM_Period个后产生一个更新或者中断*/		
-  //当定时器从0计数到4999，即为5000次，为一个定时周期
-  TIM_TimeBaseStructure.TIM_Period = Period;       
+
+  TIM_TimeBaseStructure.TIM_Period = TIM2_PRD;       
 	
-	//定时器时钟源TIMxCLK = 2 * PCLK1  
-  //				PCLK1 = HCLK / 4 
-  //				=> TIMxCLK=HCLK/2=SystemCoreClock/2=84MHz
-	// 设定定时器频率为=TIMxCLK/(TIM_Prescaler+1)=10000Hz
-  TIM_TimeBaseStructure.TIM_Prescaler = Prescaler;	
+  TIM_TimeBaseStructure.TIM_Prescaler = 0;	
+  
+  TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;     
+    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	
 	// 初始化定时器TIMx, x[2,3,4,5]
-	TIM_TimeBaseInit(BASIC_TIM, &TIM_TimeBaseStructure);
-	
+	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
+
+
+
+	TIM_SelectInputTrigger(TIM2, TIM_TS_ITR0);//选择 TIMx 输入触发源，TIM 内部触发 0      
+    TIM_SelectSlaveMode(TIM2,TIM_SlaveMode_External1 );// 等同 TIM2->SMCR|=0x07 //设置从模式寄存器 
+    //   TIM2->SMCR|=0x07;  
+
+	//设置从模式寄存器       
+    TIM_ITConfig(TIM2,TIM_IT_Update,DISABLE); //
 	
 	// 清除定时器更新中断标志位
-	TIM_ClearFlag(BASIC_TIM, TIM_FLAG_Update);
+	TIM_ClearITPendingBit(TIM2,TIM_IT_Update);//清除TIMx 的中断待处理位
 	
 	// 开启定时器更新中断
-	TIM_ITConfig(BASIC_TIM,TIM_IT_Update,ENABLE);
+	TIM_ITConfig(TIM2,TIM_IT_Update,DISABLE);
 	
 	// 使能定时器
-	TIM_Cmd(BASIC_TIM, ENABLE);	
+	TIM_Cmd(TIM2, ENABLE);	
 }
 
 /**
@@ -68,11 +63,11 @@ static void TIM_Mode_Config(void)
   * @param  无
   * @retval 无
   */
-void TIMx_Configuration(void)
+void TIM2_Configuration(void)
 {
 	TIMx_NVIC_Configuration();	
   
-  TIM_Mode_Config();
+  	TIM_Mode_Config();
 }
 
 /*********************************************END OF FILE**********************/

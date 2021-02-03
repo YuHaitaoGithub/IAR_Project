@@ -2,16 +2,22 @@
 
 
 
-volatile uint8_t ReceiveArray[ReceiveDataSize];
-volatile uint16_t Index = 0;
-volatile uint16_t ReceiveFlag = 0;
-volatile uint16_t erroyFlag = 0;
-volatile uint16_t period;
-volatile uint16_t prescaler;
-long f = 10;
+//volatile uint8_t ReceiveArray[ReceiveDataSize];
+//volatile uint16_t Index = 0;
+//volatile uint16_t ReceiveFlag = 0;
+//volatile uint16_t erroyFlag = 0;
+
+volatile uint32_t period1;
+volatile uint32_t period2;
 
 
+//volatile uint16_t prescaler;
 
+
+//long f = 10;
+
+
+#if 0
 int FrequencyCalculation()
 {
 	float midFloat;
@@ -51,7 +57,10 @@ int FrequencyCalculation()
 	}
 	return 1;
 }
+#endif
 
+
+#if 0
 int ChangeFry(void)
 {
 	int i;
@@ -79,40 +88,27 @@ int ChangeFry(void)
 	return 1;
 }
 
+#endif
+
+
+
+
 
 
 
 int main(void) 
 {
-	//LED_GPIO_Config();
-	Debug_USART_Config();
-    
-	//TIMx_Configuration(); 
-    FrequencyCalculation();
-	TIMx_PWMConfiguration();
-	printf("Current frequency:%d HZ\n",f);
+	LED_GPIO_Config();
+	//Debug_USART_Config();
+	TIM2_Configuration(); 
+    TIMx_PWMConfiguration();
+	
+    //FrequencyCalculation();
+	
+	//printf("Current frequency:%d HZ\n",f);
+	//Pulse_output(1000,8000);//1KHZ£¬8000¸öÂö³å
  	while(1)
-  	{  
-		if(ReceiveFlag)
-		{
-			ReceiveFlag = 0;
-			if(!ChangeFry())
-			{
-				printf("Invalid data\n");
-                memset((void*)ReceiveArray,0,Index);
-                Index = 0;
-                continue;
-			}
-			if(!FrequencyCalculation())
-			{
-				printf("Data out of range\n");
-			}
-            if(FrequencyCalculation())
-                printf("Write success,Current frequency:%d HZ\n",f);
-            TIMx_PWMConfiguration();
-            memset((void*)ReceiveArray,0,Index);
-            Index = 0;
-		}
+  	{
 		
   	}
 }

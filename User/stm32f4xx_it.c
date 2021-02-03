@@ -34,11 +34,13 @@
 #include "bsp_debug_usart.h"
 #include "main.h"
 
+/*
 extern uint16_t erroyFlag;
 extern uint16_t Index;
 extern uint8_t ReceiveArray[ReceiveDataSize];
 extern uint16_t ReceiveFlag;
-	
+*/
+
 /** @addtogroup STM32F429I_DISCOVERY_Examples
   * @{
   */
@@ -162,18 +164,20 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */	
-#if 0
-void  BASIC_TIM_IRQHandler (void)
-{
-	if ( TIM_GetITStatus( BASIC_TIM, TIM_IT_Update) != RESET ) 
-	{	
-		//a = 1;
-	  	LED1_TOGGLE;
-		TIM_ClearITPendingBit(BASIC_TIM , TIM_IT_Update);  		 
-	}		 	
+void TIM2_IRQHandler(void) 
+{ 
+	if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)	   // TIM_IT_CC1
+	{
+		LED1_TOGGLE;
+		TIM_ClearITPendingBit(TIM2, TIM_IT_Update); // 清除中断标志位 
+		TIM_CtrlPWMOutputs(TIM1, DISABLE);	//主输出使能
+		TIM_Cmd(TIM1, DISABLE); // 关闭定时器 
+		TIM_Cmd(TIM2, DISABLE); // 关闭定时器 
+		TIM_ITConfig(TIM2, TIM_IT_Update, DISABLE); 		
+	} 
 }
-#endif
 
+#if 0
 void DEBUG_USART_IRQHandler(void)
 {
   	uint8_t ucTemp;
@@ -190,7 +194,7 @@ void DEBUG_USART_IRQHandler(void)
 		ReceiveFlag = 1;
 	}
 }	
-
+#endif
 /**
   * @}
   */ 

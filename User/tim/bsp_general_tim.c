@@ -1,10 +1,10 @@
 #include "bsp_general_tim.h"
 
 
-extern uint16_t period;
-extern uint16_t prescaler;
+extern uint16_t period1;
+//extern uint16_t prescaler;
 
-
+#if 0
 static void TIMx_GPIO_Config(void) 
 {
 	/*定义一个GPIO_InitTypeDef类型的结构体*/
@@ -18,27 +18,27 @@ static void TIMx_GPIO_Config(void)
 	/* 定时器通道引脚配置 */															   
 	GPIO_InitStructure.GPIO_Pin = GENERAL_OCPWM_PIN;	
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;  //复用功能模式  
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_OType = GPIO_Mode_OUT;
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz; 
 	GPIO_Init(GENERAL_OCPWM_GPIO_PORT, &GPIO_InitStructure);
 }
+#endif
 
 
-
-static void TIM_PWMOUTPUT_Config(void)
+static void TIM1_PWMOUTPUT_Config(void)
 {
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	TIM_OCInitTypeDef  TIM_OCInitStructure;
 
 	// 开启TIMx_CLK,x[2,3,4,5,12,13,14] 
-	RCC_APB1PeriphClockCmd(GENERAL_TIM_CLK, ENABLE); 
+	RCC_APB2PeriphClockCmd(GENERAL_TIM_CLK, ENABLE); 
 
 	/* 累计 TIM_Period个后产生一个更新或者中断*/		
-	TIM_TimeBaseStructure.TIM_Period = period-1;       
+	TIM_TimeBaseStructure.TIM_Period = period1-1;       
 
 	// 设定定时器频率为=TIMxCLK/(TIM_Prescaler+1)Hz
-	TIM_TimeBaseStructure.TIM_Prescaler = prescaler-1;	
+	TIM_TimeBaseStructure.TIM_Prescaler = 84-1;	
 	// 采样时钟分频
 	TIM_TimeBaseStructure.TIM_ClockDivision=TIM_CKD_DIV1;
 	// 计数方式
@@ -51,27 +51,35 @@ static void TIM_PWMOUTPUT_Config(void)
 	/* PWM1 Mode configuration: Channel1 */
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;	    //配置为PWM模式1
 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;	
-	TIM_OCInitStructure.TIM_Pulse = (period / DUTY_CYCLE) - 1;
+	TIM_OCInitStructure.TIM_Pulse = (period1 / DUTY_CYCLE) - 1;
 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;  	  //当定时器计数值小于CCR1_Val时为高电平
 	TIM_OC1Init(GENERAL_TIM, &TIM_OCInitStructure);	 //使能通道1
   
-	/*使能通道1重载*/
+	/*使能或者失能 TIMx 在 CCR1 上的预装载寄存器*/
 	TIM_OC1PreloadConfig(GENERAL_TIM, TIM_OCPreload_Enable);
-	
+
+	TIM_SelectMasterSlaveMode(GENERAL_TIM, TIM_MasterSlaveMode_Enable);//设置或者重置 TIMx 主/从模式
+	TIM_SelectOutputTrigger(TIM1, TIM_TRGOSource_Update);//选择 TIMx 更新事件作为触发输出
+
 	// 使能定时器
 	TIM_Cmd(GENERAL_TIM, ENABLE);	
+   
 }
 
-/**
+
+
+/**	
   * @brief  初始化控制通用定时器
   * @param  无
   * @retval 无
   */
 void TIMx_PWMConfiguration(void)
 {
-	TIMx_GPIO_Config();
+	//TIMx_GPIO_Config();
   
-  	TIM_PWMOUTPUT_Config();
+  	TIM1_PWMOUTPUT_Config();
+	TIM_CtrlPWMOutputs(TIM1, ENABLE);   //高级定时器一定要加上，主输出使能
+	
 }
 
 /*********************************************END OF FILE**********************/
