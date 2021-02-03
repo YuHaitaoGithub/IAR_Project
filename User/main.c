@@ -6,8 +6,8 @@ volatile uint8_t ReceiveArray[ReceiveDataSize];
 volatile uint16_t Index = 0;
 volatile uint16_t ReceiveFlag = 0;
 volatile uint16_t erroyFlag = 0;
-volatile uint16_t period = 1000;
-volatile uint16_t prescaler = 8400;
+volatile uint16_t period;
+volatile uint16_t prescaler;
 long f = 10;
 
 
@@ -20,7 +20,7 @@ int FrequencyCalculation()
 	float clkFloat;
 	if(f <= 0)
 		return 0;
-    clkFloat = 42000000.0f / f;
+    clkFloat = CK_INT / f;
 	if(clkFloat-(long)clkFloat >= 0.5f)  		
 		clkInt = clkFloat + 1;
 	else							 		
