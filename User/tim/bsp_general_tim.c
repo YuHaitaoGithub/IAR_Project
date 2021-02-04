@@ -28,11 +28,18 @@ static void TIMx_GPIO_Config(void)
 
 static void TIM1_PWMOUTPUT_Config(void)
 {
+	GPIO_InitTypeDef GPIO_InitStructure; //GPIO设置，创建结构体
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	TIM_OCInitTypeDef  TIM_OCInitStructure;
 
-	// 开启TIMx_CLK,x[2,3,4,5,12,13,14] 
-	RCC_APB2PeriphClockCmd(GENERAL_TIM_CLK, ENABLE); 
+	
+	RCC_APB2PeriphClockCmd(RCC_AHB1Periph_GPIOA | RCC_APB2Periph_TIM1 , ENABLE); //开启时钟
+	 
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;  //TIM1_CH1 PA8
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
 
 	/* 累计 TIM_Period个后产生一个更新或者中断*/		
 	TIM_TimeBaseStructure.TIM_Period = period1-1;       
@@ -56,11 +63,12 @@ static void TIM1_PWMOUTPUT_Config(void)
 	TIM_OC1Init(GENERAL_TIM, &TIM_OCInitStructure);	 //使能通道1
   
 	/*使能或者失能 TIMx 在 CCR1 上的预装载寄存器*/
-	TIM_OC1PreloadConfig(GENERAL_TIM, TIM_OCPreload_Enable);
+	//TIM_OC1PreloadConfig(GENERAL_TIM, TIM_OCPreload_Enable);
 
 	TIM_SelectMasterSlaveMode(GENERAL_TIM, TIM_MasterSlaveMode_Enable);//设置或者重置 TIMx 主/从模式
 	TIM_SelectOutputTrigger(TIM1, TIM_TRGOSource_Update);//选择 TIMx 更新事件作为触发输出
 
+	TIM_ARRPreloadConfig(TIM1, ENABLE);  // 使能或者失能 TIMx 在 ARR 上的预装载寄存器 
 	// 使能定时器
 	TIM_Cmd(GENERAL_TIM, ENABLE);	
    

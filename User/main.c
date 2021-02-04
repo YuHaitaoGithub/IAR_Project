@@ -7,8 +7,8 @@
 //volatile uint16_t ReceiveFlag = 0;
 //volatile uint16_t erroyFlag = 0;
 
-volatile uint32_t period1;
-volatile uint32_t period2;
+volatile uint32_t period1 = 1000;
+volatile uint32_t period2 = 8000;
 
 
 //volatile uint16_t prescaler;
