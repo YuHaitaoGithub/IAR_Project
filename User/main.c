@@ -9,12 +9,12 @@
 
 volatile uint32_t period1 = 1000;
 volatile uint32_t period2 = 8000;
-
+volatile uint16_t erroyFlag = 0;
 
 //volatile uint16_t prescaler;
 
 
-//long f = 10;
+volatile long f = 1;
 
 
 #if 0
@@ -99,18 +99,29 @@ int ChangeFry(void)
 int main(void) 
 {
 	LED_GPIO_Config();
-	//Debug_USART_Config();
-	TIM2_Configuration(); 
-    TIMx_PWMConfiguration();
+	Debug_USART_Config();
 	
     //FrequencyCalculation();
 	
 	//printf("Current frequency:%d HZ\n",f);
 	//Pulse_output(1000,8000);//1KHZ£¬8000¸öÂö³å
- 	while(1)
-  	{
+	while(1)
+ 	{
 		
-  	}
+		LED1_ON;
+		LED2_ON;
+		LED3_ON;
+		TIM2_Configuration(); 
+		TIMx_PWMConfiguration();
+		while(f)
+	  	{
+			printf("%d\n",TIM2->CNT);
+	  	}
+        printf("8000\n");
+        f = 1;
+        while(erroyFlag != 1);
+		erroyFlag = 0;
+	}
 }
 
 

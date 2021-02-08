@@ -10,6 +10,16 @@
 #define LED1_GPIO_PORT            GPIOF                      
 #define LED1_GPIO_CLK             RCC_AHB1Periph_GPIOF
 
+#define LED2_PIN                  GPIO_Pin_8
+#define LED2_GPIO_PORT            GPIOF                      
+#define LED2_GPIO_CLK             RCC_AHB1Periph_GPIOF
+
+
+#define LED3_PIN                  GPIO_Pin_7
+#define LED3_GPIO_PORT            GPIOF                      
+#define LED3_GPIO_CLK             RCC_AHB1Periph_GPIOF
+
+
 //G ÂÌÉ«µÆ
 /************************************************************/
 
@@ -38,6 +48,20 @@
 #define LED1_TOGGLE		digitalToggle(LED1_GPIO_PORT,LED1_PIN)
 #define LED1_OFF			digitalHi(LED1_GPIO_PORT,LED1_PIN)
 #define LED1_ON				digitalLo(LED1_GPIO_PORT,LED1_PIN)
+
+#define LED2_TOGGLE		digitalToggle(LED2_GPIO_PORT,LED2_PIN)
+#define LED2_OFF			digitalHi(LED2_GPIO_PORT,LED2_PIN)
+#define LED2_ON				digitalLo(LED2_GPIO_PORT,LED2_PIN)
+
+
+#define LED3_TOGGLE		digitalToggle(LED3_GPIO_PORT,LED3_PIN)
+#define LED3_OFF			digitalHi(LED3_GPIO_PORT,LED3_PIN)
+#define LED3_ON				digitalLo(LED3_GPIO_PORT,LED3_PIN)
+
+#define LED_RGBOFF	\
+					LED1_OFF;\
+					LED2_OFF;\
+					LED3_OFF
 
 
 

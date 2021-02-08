@@ -34,9 +34,10 @@
 #include "bsp_debug_usart.h"
 #include "main.h"
 
-/*
+extern long f;
+
 extern uint16_t erroyFlag;
-extern uint16_t Index;
+/*extern uint16_t Index;
 extern uint8_t ReceiveArray[ReceiveDataSize];
 extern uint16_t ReceiveFlag;
 */
@@ -169,32 +170,29 @@ void TIM2_IRQHandler(void)
 	if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)	   // TIM_IT_CC1
 	{
 		LED1_TOGGLE;
+		LED2_TOGGLE;
+		LED3_TOGGLE;
+		f = 0;
 		TIM_ClearITPendingBit(TIM2, TIM_IT_Update); // 清除中断标志位 
 		TIM_CtrlPWMOutputs(TIM1, DISABLE);	//主输出使能
 		TIM_Cmd(TIM1, DISABLE); // 关闭定时器 
 		TIM_Cmd(TIM2, DISABLE); // 关闭定时器 
-		TIM_ITConfig(TIM2, TIM_IT_Update, DISABLE); 		
+		TIM_ITConfig(TIM2, TIM_IT_Update, DISABLE); 
 	} 
 }
 
-#if 0
+
 void DEBUG_USART_IRQHandler(void)
 {
   	uint8_t ucTemp;
 	if(USART_GetITStatus(DEBUG_USART,USART_IT_RXNE)!= RESET)
 	{		
-		ReceiveArray[Index++] = USART_ReceiveData( DEBUG_USART );
-		if(ReceiveArray[Index - 1] - 48 < 0 || ReceiveArray[Index - 1] - 57 > 9)
+		ucTemp = USART_ReceiveData( DEBUG_USART );
+		if(ucTemp == '1')
 			erroyFlag = 1;	
 	}	
-	if(USART_GetITStatus(DEBUG_USART,USART_IT_IDLE)!= RESET)
-	{		
-		ucTemp = DEBUG_USART->SR;
-		ucTemp = DEBUG_USART->DR;
-		ReceiveFlag = 1;
-	}
 }	
-#endif
+
 /**
   * @}
   */ 
