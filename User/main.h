@@ -10,10 +10,6 @@
 #include "math.h"
 
 
-#define CK_INT          84000000.0f
-
-#define ReceiveDataSize 256
-
 
 
 #endif
